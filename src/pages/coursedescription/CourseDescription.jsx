@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import "./coursedescription.css";
@@ -7,7 +8,7 @@ import { server } from "../../main";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserData } from "../../context/UserContext";
-import Loading from "../../components/loading/Loading";
+import Loading from "../../components/loading/Loading.jsx";
 
 const CourseDescription = ({ user }) => {
   const params = useParams();

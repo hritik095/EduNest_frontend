@@ -1,39 +1,59 @@
-import React, { useState } from 'react'
-import './auth.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserData } from '../../context/UserContext';
+import React, { useState } from "react";
+import "./auth.css";
+import { Link, useNavigate } from "react-router-dom";
+import { UserData } from "../../context/UserContext";
+import { CourseData } from "../../context/CourseContext";
+import toast from "react-hot-toast";
+
 const Login = () => {
   const navigate = useNavigate();
   const { btnLoading, loginUser } = UserData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { fetchMyCourse } = CourseData();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await loginUser(email, password, navigate);
+    try {
+      await loginUser(email, password, navigate);
+      
+      await fetchMyCourse(); // Fetch user courses after login
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
     <div className="auth-page">
-        <div className="auth-form">
-            <h2>LogIn</h2>
-            <form onSubmit={submitHandler}>
-                <label htmlFor='email'>Email</label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} required/>
+      <div className="auth-form">
+        <h2>Login</h2>
+        <form onSubmit={submitHandler}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-                <label htmlFor='password'>Password</label>
-                <input type="password" value={password}
-            onChange={(e) => setPassword(e.target.value)}  required/>
-                 <button disabled={btnLoading} type="submit" className="common-btn">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button disabled={btnLoading} type="submit" className="common-btn">
             {btnLoading ? "Please Wait..." : "Login"}
           </button>
-            </form>
-            <p>
-                Don't have an account? <Link to='/register'>Register</Link>
-            </p>
-        </div>
+        </form>
+        <p>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

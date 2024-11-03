@@ -11,8 +11,8 @@ const Footer = () => {
     <footer>
       <div className="footer-content">
         <p>
-          &copy; 2024 Your EduNest Platform. All rights reserved. <br /> Made
-          with ❤️ <a href="">Hritik Kumar</a>
+          &copy; 2024 Your <b>EduNest</b> Platform. All rights reserved. <br /> Made
+          with ❤️ by<a href="https://www.linkedin.com/in/hritik04/"> <u><b>Hritik</b></u></a>
         </p>
         <div className="social-links">
           <a href="">
